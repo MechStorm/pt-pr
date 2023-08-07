@@ -34,5 +34,5 @@ build/
 
 ###Own ignore files ###
 src/main/resources/application.properties
-.mvnw
-.mvnw.cmd
+mvnw
+mvnw.cmd
