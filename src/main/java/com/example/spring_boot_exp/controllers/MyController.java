@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.io.IOException;
+import java.security.Principal;
 import java.util.List;
 
 @Controller
@@ -21,10 +22,11 @@ public class MyController {
     private final ServiceBook serviceBook;
 
     @GetMapping("/")
-    public String getAllEmployees(@RequestParam(name = "title", required = false) String title, Model model) {
+    public String getAllEmployees(@RequestParam(name = "title", required = false) String title, Principal principal, Model model) {
 
         List<Book> books = serviceBook.getAllBooks(title);
         model.addAttribute("allBooks", books);
+        model.addAttribute("user", serviceBook.getUserByPrincipal(principal));
 
         return "show-all-books";
     }
@@ -42,8 +44,8 @@ public class MyController {
     public String addBook(@RequestParam("file1") MultipartFile file1,
                           @RequestParam("file2") MultipartFile file2,
                           @RequestParam("file3") MultipartFile file3,
-                          Book book) throws IOException {
-        serviceBook.saveBook(book, file1, file2, file3);
+                          Book book, Principal principal) throws IOException {
+        serviceBook.saveBook(principal, book, file1, file2, file3);
         return "redirect:/";
     }
 

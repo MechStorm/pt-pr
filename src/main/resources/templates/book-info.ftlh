@@ -18,11 +18,14 @@
     <li>Author: ${book.author}</li>
     <li>Year: ${book.year}</li>
     <li>Price: ${book.price}</li>
+    <#if book.user.phoneNumber??>
+        <li>Phone number: ${book.user.phoneNumber}</li>
+        <#else>
+        <li>User didn't add his phone number</li>
+    </#if>
+
 </ul>
 <hr>
-<form class="form-delete" action="/book/delete/${book.id}" method="post">
-    <input type="submit" value="DELETE BOOK">
-</form>
 <div class="home">
     <p><a href="/">home</a></p>
 </div>
